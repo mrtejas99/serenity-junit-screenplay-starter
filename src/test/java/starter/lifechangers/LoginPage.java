@@ -1,21 +1,32 @@
 package starter.lifechangers;
 
-import net.serenitybdd.core.pages.PageObject;
 import net.thucydides.core.annotations.DefaultUrl;
+import net.thucydides.core.pages.PageObject;
 
-@DefaultUrl("https://lifechangers.org/")
-public class LoginPage extends PageObject{
-    public String getHomepageTitle() {
-    	return getTitle();
+import org.openqa.selenium.WebElement;
+import org.openqa.selenium.support.FindBy;
+
+@DefaultUrl("https://example.com/login")
+public class LoginPage extends PageObject {
+
+    @FindBy(id = "username")
+    private WebElement usernameField;
+
+    @FindBy(id = "password")
+    private WebElement passwordField;
+
+    @FindBy(id = "loginButton")
+    private WebElement loginButton;
+
+    public void enterUsername(String username) {
+        element(usernameField).type(username);
     }
 
-    public void doLogin(){
-        $("#username").sendKeys("tejas.lotlikar@xyzabc.com");
-        $("#password").sendKeys("1234578");
-        $("p:nth-child(3) > input.btn.btn-primary").click();
+    public void enterPassword(String password) {
+        element(passwordField).type(password);
     }
-    
-    public String accountPageIsVisible(){
-        return $("body > div > section.section.section-home-latest.woocommerce > div > div > h5").getText();
+
+    public void clickLoginButton() {
+        element(loginButton).click();
     }
 }
